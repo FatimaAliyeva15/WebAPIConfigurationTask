@@ -1,0 +1,88 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Net;
+using WebApiConfigurations.DAL.EFCore;
+using WebApiConfigurations.DTOs.ProductDTOs;
+using WebApiConfigurations.Entities;
+
+namespace WebApiConfigurations.Controllers
+{
+    [Route("api/[controller]/[action]")]
+    [ApiController]
+    public class ProductsController : ControllerBase
+    {
+        private readonly AppDbContext  _context;
+
+        public ProductsController(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllProducts()
+        {
+            var list = await _context.Products.ToListAsync();
+            return StatusCode((int)HttpStatusCode.OK, list);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetByIdProduct(Guid id)
+        {
+            var existsProduct = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
+            if(existsProduct == null) 
+                return NotFound();
+
+            return StatusCode((int)HttpStatusCode.Found, existsProduct);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddProduct(CreateProductDTO createProductDTO)
+        {
+            Product product = new Product()
+            {
+                Name = createProductDTO.Name,
+                Price = createProductDTO.Price,
+                Description = createProductDTO.Description,
+                Count = createProductDTO.Count,
+                Currency = createProductDTO.Currency,
+                CategoryId = createProductDTO.CategoryId,
+            };
+
+            await _context.Products.AddAsync(product);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteProduct(Guid id)
+        {
+            var existsProduct = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
+            if(existsProduct == null)
+                return NotFound();
+
+            _context.Products.Remove(existsProduct);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateProduct(Guid id, UpdateProductDTO updateProductDTO)
+        {
+            var existProduct = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
+            if(existProduct == null)
+                return NotFound();
+
+            existProduct.Name = updateProductDTO.Name == null? existProduct.Name : updateProductDTO.Name;
+            existProduct.Price = updateProductDTO.Price == null? existProduct.Price : updateProductDTO.Price;
+            existProduct.Description = updateProductDTO.Description == null? existProduct.Description : updateProductDTO.Description;
+            existProduct.Currency = updateProductDTO.Currency == null? existProduct.Currency : updateProductDTO.Currency;
+            existProduct.Count = updateProductDTO.Count == null? existProduct.Count : updateProductDTO.Count;
+            existProduct.CategoryId = updateProductDTO.CategoryId == null? existProduct.CategoryId : updateProductDTO.CategoryId;
+
+            _context.Update(existProduct);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        } 
+    }
+}
