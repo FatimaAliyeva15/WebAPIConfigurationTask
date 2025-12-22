@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -13,16 +14,19 @@ namespace WebApiConfigurations.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly AppDbContext  _context;
+        IMapper _mapper;
 
-        public ProductsController(AppDbContext context)
+        public ProductsController(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
         {
             var list = await _context.Products.ToListAsync();
+            //var result = _mapper.Map<List<GetProductDTO>>(list);
             return StatusCode((int)HttpStatusCode.OK, list);
         }
 
@@ -33,21 +37,25 @@ namespace WebApiConfigurations.Controllers
             if(existsProduct == null) 
                 return NotFound();
 
-            return StatusCode((int)HttpStatusCode.Found, existsProduct);
+            var result = _mapper.Map<GetProductDTO>(existsProduct);
+
+            return StatusCode((int)HttpStatusCode.Found, result);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddProduct(CreateProductDTO createProductDTO)
         {
-            Product product = new Product()
-            {
-                Name = createProductDTO.Name,
-                Price = createProductDTO.Price,
-                Description = createProductDTO.Description,
-                Count = createProductDTO.Count,
-                Currency = createProductDTO.Currency,
-                CategoryId = createProductDTO.CategoryId,
-            };
+            //Product product = new Product()
+            //{
+            //    Name = createProductDTO.Name,
+            //    Price = createProductDTO.Price,
+            //    Description = createProductDTO.Description,
+            //    Count = createProductDTO.Count,
+            //    Currency = createProductDTO.Currency,
+            //    CategoryId = createProductDTO.CategoryId,
+            //};
+
+            var product = _mapper.Map<Product>(createProductDTO);
 
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
@@ -70,17 +78,19 @@ namespace WebApiConfigurations.Controllers
         public async Task<IActionResult> UpdateProduct(Guid id, UpdateProductDTO updateProductDTO)
         {
             var existProduct = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
-            if(existProduct == null)
+            if(existProduct == null)  
                 return NotFound();
 
-            existProduct.Name = updateProductDTO.Name == null? existProduct.Name : updateProductDTO.Name;
-            existProduct.Price = updateProductDTO.Price == null? existProduct.Price : updateProductDTO.Price;
-            existProduct.Description = updateProductDTO.Description == null? existProduct.Description : updateProductDTO.Description;
-            existProduct.Currency = updateProductDTO.Currency == null? existProduct.Currency : updateProductDTO.Currency;
-            existProduct.Count = updateProductDTO.Count == null? existProduct.Count : updateProductDTO.Count;
-            existProduct.CategoryId = updateProductDTO.CategoryId == null? existProduct.CategoryId : updateProductDTO.CategoryId;
+            //existProduct.Name = updateProductDTO.Name == null? existProduct.Name : updateProductDTO.Name;
+            //existProduct.Price = updateProductDTO.Price == null? existProduct.Price : updateProductDTO.Price;
+            //existProduct.Description = updateProductDTO.Description == null? existProduct.Description : updateProductDTO.Description;
+            //existProduct.Currency = updateProductDTO.Currency == null? existProduct.Currency : updateProductDTO.Currency;
+            //existProduct.Count = updateProductDTO.Count == null? existProduct.Count : updateProductDTO.Count;
+            //existProduct.CategoryId = updateProductDTO.CategoryId == null? existProduct.CategoryId : updateProductDTO.CategoryId;
 
-            _context.Update(existProduct);
+            //_context.Update(existProduct);
+
+            _mapper.Map(updateProductDTO, existProduct);
             await _context.SaveChangesAsync();
             return NoContent();
         } 

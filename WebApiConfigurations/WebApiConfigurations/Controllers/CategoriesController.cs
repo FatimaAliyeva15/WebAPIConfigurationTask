@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Net;
 using WebApiConfigurations.DAL.EFCore;
 using WebApiConfigurations.DTOs.CategoryDTOs;
+using WebApiConfigurations.DTOs.ProductDTOs;
 using WebApiConfigurations.Entities;
+using WebApiConfigurations.Mapping;
 
 namespace WebApiConfigurations.Controllers
 {
@@ -13,16 +17,19 @@ namespace WebApiConfigurations.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly AppDbContext _context;
+        IMapper _mapper;
 
-        public CategoriesController(AppDbContext context)
+        public CategoriesController(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllCategories()
         {
             var list = await _context.Categories.ToListAsync();
+            //var result = _mapper.Map<List<GetCategoryDTO>>(list);
             return StatusCode((int)HttpStatusCode.OK, list);
         }
 
@@ -33,17 +40,21 @@ namespace WebApiConfigurations.Controllers
             if (existsCategory == null) 
                 return NotFound();
 
-            return StatusCode((int)HttpStatusCode.Found, existsCategory);
+            var result = _mapper.Map<GetCategoryDTO>(existsCategory);
+
+            return StatusCode((int)HttpStatusCode.Found, result);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateCategory(CreateCategoryDTO createCategoryDTO)
         {
-            Category category = new Category()
-            {
-                CategoryName = createCategoryDTO.CategoryName,
-                Description = createCategoryDTO.Description,
-            };
+            //Category category = new Category()
+            //{
+            //    CategoryName = createCategoryDTO.CategoryName,
+            //    Description = createCategoryDTO.Description,
+            //};
+
+            var category = _mapper.Map<Category>(createCategoryDTO);
 
             await _context.Categories.AddAsync(category);
             await _context.SaveChangesAsync();
@@ -69,10 +80,12 @@ namespace WebApiConfigurations.Controllers
             if (existsCategory == null)
                 return NotFound();
 
-            existsCategory.CategoryName = updateCategoryDTO.CategoryName == null? existsCategory.CategoryName : updateCategoryDTO.CategoryName;
-            existsCategory.Description = updateCategoryDTO.Description == null? existsCategory.Description : updateCategoryDTO.Description;
+            //existsCategory.CategoryName = updateCategoryDTO.CategoryName == null? existsCategory.CategoryName : updateCategoryDTO.CategoryName;
+            //existsCategory.Description = updateCategoryDTO.Description == null? existsCategory.Description : updateCategoryDTO.Description;
 
-            _context.Update(existsCategory);
+            //_context.Update(existsCategory);
+
+            _mapper.Map(updateCategoryDTO, existsCategory);
             await _context.SaveChangesAsync();
             return NoContent();
         }
