@@ -1,8 +1,13 @@
 
 
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Reflection;
 using WebApiConfigurations.DAL.EFCore;
+using WebApiConfigurations.DTOs.CategoryDTOs;
+using WebApiConfigurations.Validators.CategoryValidators;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +21,18 @@ builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddControllers().AddFluentValidation(opt =>
+{
+
+    opt.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+    opt.ImplicitlyValidateChildProperties = true;
+    opt.ImplicitlyValidateRootCollectionElements = true;
+
+});
+
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
+
 
 var app = builder.Build();
 
