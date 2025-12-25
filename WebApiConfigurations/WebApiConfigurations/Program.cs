@@ -21,14 +21,10 @@ builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddControllers().AddFluentValidation(opt =>
-{
+builder.Services.AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters();
 
-    opt.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-    opt.ImplicitlyValidateChildProperties = true;
-    opt.ImplicitlyValidateRootCollectionElements = true;
-
-});
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 

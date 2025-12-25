@@ -77,8 +77,8 @@ namespace WebApiConfigurations.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateProduct(Guid id, UpdateProductDTO updateProductDTO)
         {
-            var existProduct = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
-            if(existProduct == null)  
+            var existsProduct = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
+            if(existsProduct == null)  
                 return NotFound();
 
             //existProduct.Name = updateProductDTO.Name == null? existProduct.Name : updateProductDTO.Name;
@@ -90,7 +90,7 @@ namespace WebApiConfigurations.Controllers
 
             //_context.Update(existProduct);
 
-            _mapper.Map(updateProductDTO, existProduct);
+            _mapper.Map(updateProductDTO, existsProduct);
             await _context.SaveChangesAsync();
             return NoContent();
         } 
