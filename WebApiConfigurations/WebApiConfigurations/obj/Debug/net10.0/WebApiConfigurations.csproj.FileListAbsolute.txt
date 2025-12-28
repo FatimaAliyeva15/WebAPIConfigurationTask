@@ -439,3 +439,4 @@ C:\Users\Asus\Desktop\VisionTasks\WebApiConfigurationTask\WebApiConfigurations\W
 C:\Users\Asus\Desktop\VisionTasks\WebApiConfigurationTask\WebApiConfigurations\WebApiConfigurations\bin\Debug\net10.0\FluentValidation.dll
 C:\Users\Asus\Desktop\VisionTasks\WebApiConfigurationTask\WebApiConfigurations\WebApiConfigurations\bin\Debug\net10.0\FluentValidation.AspNetCore.dll
 C:\Users\Asus\Desktop\VisionTasks\WebApiConfigurationTask\WebApiConfigurations\WebApiConfigurations\bin\Debug\net10.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\Asus\Desktop\VisionTasks\WebApiConfigurationTask\WebApiConfigurations\WebApiConfigurations\bin\Debug\net10.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll

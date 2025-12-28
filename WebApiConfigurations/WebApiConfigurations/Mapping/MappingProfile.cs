@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using WebApiConfigurations.DTOs;
 using WebApiConfigurations.DTOs.CategoryDTOs;
 using WebApiConfigurations.DTOs.OrderDTOs;
 using WebApiConfigurations.DTOs.OrderItemDTOs;
 using WebApiConfigurations.DTOs.ProductDTOs;
 using WebApiConfigurations.Entities;
+using WebApiConfigurations.Entities.UserModel;
 
 namespace WebApiConfigurations.Mapping
 {
@@ -29,6 +31,8 @@ namespace WebApiConfigurations.Mapping
             CreateMap<OrderItem, GetOrderItemDTO>().ReverseMap();
             CreateMap<UpdateOrderItemDTO, OrderItem>().ForAllMembers(opt => 
                 opt.Condition((src, dest, srcMember) => srcMember != null));
+
+            CreateMap<RegisterDTO, AppUser<Guid>>();
 
         }
     }

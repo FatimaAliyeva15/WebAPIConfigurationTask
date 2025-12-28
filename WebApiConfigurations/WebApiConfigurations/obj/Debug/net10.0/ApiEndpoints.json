@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "WebApiConfigurations.Controllers.Auth.AuthController",
+    "Method": "Register",
+    "RelativePath": "api/Auth/Register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "registerDTO",
+        "Type": "WebApiConfigurations.DTOs.RegisterDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WebApiConfigurations.Controllers.CategoriesController",
     "Method": "CreateCategory",
     "RelativePath": "api/Categories/CreateCategory",

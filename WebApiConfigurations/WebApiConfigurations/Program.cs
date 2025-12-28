@@ -2,11 +2,13 @@
 
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Reflection;
 using WebApiConfigurations.DAL.EFCore;
 using WebApiConfigurations.DTOs.CategoryDTOs;
+using WebApiConfigurations.Entities.UserModel;
 using WebApiConfigurations.Validators.CategoryValidators;
 
 
@@ -28,6 +30,7 @@ builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
+builder.Services.AddIdentity<AppUser<Guid>, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
 
 var app = builder.Build();
@@ -46,6 +49,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
