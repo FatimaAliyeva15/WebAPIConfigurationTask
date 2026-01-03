@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using WebApiConfigurations.DTOs;
+using WebApiConfigurations.DTOs.AuthDTO;
 using WebApiConfigurations.DTOs.CategoryDTOs;
 using WebApiConfigurations.DTOs.OrderDTOs;
 using WebApiConfigurations.DTOs.OrderItemDTOs;

@@ -1,6 +1,22 @@
 [
   {
     "ContainingType": "WebApiConfigurations.Controllers.Auth.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginDTO",
+        "Type": "WebApiConfigurations.DTOs.AuthDTO.LoginDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApiConfigurations.Controllers.Auth.AuthController",
     "Method": "Register",
     "RelativePath": "api/Auth/Register",
     "HttpMethod": "POST",
@@ -9,7 +25,7 @@
     "Parameters": [
       {
         "Name": "registerDTO",
-        "Type": "WebApiConfigurations.DTOs.RegisterDTO",
+        "Type": "WebApiConfigurations.DTOs.AuthDTO.RegisterDTO",
         "IsRequired": true
       }
     ],

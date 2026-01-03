@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,7 @@ namespace WebApiConfigurations.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetAllCategories()
         {
             var list = await _context.Categories.ToListAsync();
@@ -34,6 +36,7 @@ namespace WebApiConfigurations.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetByIdCategory(Guid id)
         {
             var existsCategory = await _context.Categories.FirstOrDefaultAsync(x  => x.Id == id);
@@ -46,6 +49,7 @@ namespace WebApiConfigurations.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateCategory(CreateCategoryDTO createCategoryDTO)
         {
             //Category category = new Category()
@@ -62,6 +66,7 @@ namespace WebApiConfigurations.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCategory(Guid id)
         {
             var existsCategory = await _context.Categories.FirstOrDefaultAsync(x =>x.Id == id);
@@ -74,6 +79,7 @@ namespace WebApiConfigurations.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateCategory(Guid id, UpdateCategoryDTO updateCategoryDTO)
         {
             var existsCategory = await _context.Categories.FirstOrDefaultAsync(x =>x.Id == id);

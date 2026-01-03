@@ -1,4 +1,4 @@
-﻿namespace WebApiConfigurations.DTOs
+﻿namespace WebApiConfigurations.DTOs.AuthDTO
 {
     public class RegisterDTO
     {

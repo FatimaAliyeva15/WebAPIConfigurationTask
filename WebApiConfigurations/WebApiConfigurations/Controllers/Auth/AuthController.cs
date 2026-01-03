@@ -2,7 +2,11 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using WebApiConfigurations.DTOs;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using WebApiConfigurations.DTOs.AuthDTO;
 using WebApiConfigurations.Entities.UserModel;
 
 namespace WebApiConfigurations.Controllers.Auth
@@ -14,12 +18,16 @@ namespace WebApiConfigurations.Controllers.Auth
         private readonly UserManager<AppUser<Guid>> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         IMapper _mapper;
+        private readonly IConfiguration _configuration;
+        private readonly TokenOption _tokenOption;
 
-        public AuthController(UserManager<AppUser<Guid>> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper)
+        public AuthController(UserManager<AppUser<Guid>> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper, IConfiguration configuration)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _mapper = mapper;
+            _configuration = configuration;
+            _tokenOption = _configuration.GetSection("TokenOptions").Get<TokenOption>();
         }
 
         [HttpPost]
@@ -79,6 +87,61 @@ namespace WebApiConfigurations.Controllers.Auth
                 Message = "User registered successfully",
                 Code = StatusCodes.Status200OK
             });
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginDTO loginDTO)
+        {
+            AppUser<Guid> user;
+            if (loginDTO.UserNameOrEmail.Contains("@"))
+            {
+                user = await _userManager.FindByNameAsync(loginDTO.UserNameOrEmail);
+            }
+            else
+            {
+                user = await _userManager.FindByNameAsync(loginDTO.UserNameOrEmail);
+            }
+
+            if (user == null) 
+                return NotFound();
+
+
+            bool isValidPassword = await _userManager.CheckPasswordAsync(user, loginDTO.Password);
+            if(!isValidPassword)
+                return Unauthorized();
+
+
+            SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenOption.SecurityKey));
+            SigningCredentials signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha512Signature);
+            JwtHeader header = new JwtHeader(signingCredentials);
+
+            List<Claim> claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Email, user.Email),
+            };
+
+            foreach (var userRole in await _userManager.GetRolesAsync(user))
+            {
+                claims.Add(new Claim(ClaimTypes.Role, userRole));
+            }
+
+            JwtPayload payload = new JwtPayload(audience: _tokenOption.Audience, issuer: _tokenOption.Issuer, claims: claims, expires:DateTime.Now.AddMinutes(_tokenOption.AccessTokenExpiration), notBefore: DateTime.UtcNow);
+            JwtSecurityToken token = new JwtSecurityToken(header, payload);
+
+            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+            string jwt = handler.WriteToken(token);
+
+            return Ok(new
+            {
+                Token = jwt,
+                StatusCode = 200,
+                Expires = _tokenOption.AccessTokenExpiration
+            });
+
+
 
         }
     }
