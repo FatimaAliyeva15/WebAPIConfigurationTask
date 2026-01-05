@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Net;
+using WebApiAdvance.DAL.Repositories.AbstractRepositories;
 using WebApiConfigurations.DAL.EFCore;
 using WebApiConfigurations.DTOs.CategoryDTOs;
 using WebApiConfigurations.DTOs.ProductDTOs;
@@ -17,20 +18,21 @@ namespace WebApiConfigurations.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly ICategoryRepository _categoryRepository;
         IMapper _mapper;
 
-        public CategoriesController(AppDbContext context, IMapper mapper)
+        public CategoriesController(IMapper mapper, ICategoryRepository categoryRepository)
         {
-            _context = context;
+
             _mapper = mapper;
+            _categoryRepository = categoryRepository;
         }
 
         [HttpGet]
         [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetAllCategories()
         {
-            var list = await _context.Categories.ToListAsync();
+            var list = await _categoryRepository.GetAllCategoryAsync();
             //var result = _mapper.Map<List<GetCategoryDTO>>(list);
             return StatusCode((int)HttpStatusCode.OK, list);
         }
@@ -39,7 +41,7 @@ namespace WebApiConfigurations.Controllers
         [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetByIdCategory(Guid id)
         {
-            var existsCategory = await _context.Categories.FirstOrDefaultAsync(x  => x.Id == id);
+            var existsCategory = await _categoryRepository.GetCategory(x  => x.Id == id);
             if (existsCategory == null) 
                 return NotFound();
 
@@ -60,8 +62,8 @@ namespace WebApiConfigurations.Controllers
 
             var category = _mapper.Map<Category>(createCategoryDTO);
 
-            await _context.Categories.AddAsync(category);
-            await _context.SaveChangesAsync();
+            await _categoryRepository.AddCategoryAsync(category);
+            await _categoryRepository.SaveAsync();
             return NoContent();
         }
 
@@ -69,12 +71,12 @@ namespace WebApiConfigurations.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCategory(Guid id)
         {
-            var existsCategory = await _context.Categories.FirstOrDefaultAsync(x =>x.Id == id);
+            var existsCategory = await _categoryRepository.GetCategory(x =>x.Id == id);
             if (existsCategory == null) 
                 return NotFound();
 
-            _context.Categories.Remove(existsCategory);
-            await _context.SaveChangesAsync();  
+            _categoryRepository.DeleteCategory(existsCategory.Id);
+            await _categoryRepository.SaveAsync();  
             return NoContent();
         }
 
@@ -82,17 +84,17 @@ namespace WebApiConfigurations.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateCategory(Guid id, UpdateCategoryDTO updateCategoryDTO)
         {
-            var existsCategory = await _context.Categories.FirstOrDefaultAsync(x =>x.Id == id);
+            var existsCategory = await _categoryRepository.GetCategory(x =>x.Id == id);
             if (existsCategory == null)
                 return NotFound();
 
-            //existsCategory.CategoryName = updateCategoryDTO.CategoryName == null? existsCategory.CategoryName : updateCategoryDTO.CategoryName;
-            //existsCategory.Description = updateCategoryDTO.Description == null? existsCategory.Description : updateCategoryDTO.Description;
+            existsCategory.CategoryName = updateCategoryDTO.CategoryName == null? existsCategory.CategoryName : updateCategoryDTO.CategoryName;
+            existsCategory.Description = updateCategoryDTO.Description == null? existsCategory.Description : updateCategoryDTO.Description;
 
             //_context.Update(existsCategory);
 
-            _mapper.Map(updateCategoryDTO, existsCategory);
-            await _context.SaveChangesAsync();
+            //_mapper.Map(updateCategoryDTO, existsCategory);
+            await _categoryRepository.SaveAsync();
             return NoContent();
         }
     }

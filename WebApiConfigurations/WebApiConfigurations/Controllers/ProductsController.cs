@@ -25,8 +25,18 @@ namespace WebApiConfigurations.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
         {
-            var list = await _context.Products.ToListAsync();
+            var list = await _context.Products.Include(p => p.Category).Select(p => new GetProductDTO
+            {
+                Name = p.Name,
+                Count = p.Count,
+                Description = p.Description,
+                Price = p.Price,
+                Currency = p.Currency,
+                CategoryName = p.Category.CategoryName
+            }).ToListAsync();
             //var result = _mapper.Map<List<GetProductDTO>>(list);
+
+
             return StatusCode((int)HttpStatusCode.OK, list);
         }
 

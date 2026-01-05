@@ -4472,9 +4472,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Asus\\Desktop\\VisionTasks\\WebApiConfigurationTask\\WebApiConfigurations\\WebApiConfigurations\\WebApiConfigurations.csproj",
-      "projectName": "WebApiConfigurations",
-      "projectPath": "C:\\Users\\Asus\\Desktop\\VisionTasks\\WebApiConfigurationTask\\WebApiConfigurations\\WebApiConfigurations\\WebApiConfigurations.csproj",
+      "projectUniqueName": "C:\\Users\\Asus\\Desktop\\VisionTasks\\WebApiConfigurationTask\\WebApiConfigurations\\WebApiConfigurations\\WebApiAdvance.csproj",
+      "projectName": "WebApiAdvance",
+      "projectPath": "C:\\Users\\Asus\\Desktop\\VisionTasks\\WebApiConfigurationTask\\WebApiConfigurations\\WebApiConfigurations\\WebApiAdvance.csproj",
       "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Asus\\Desktop\\VisionTasks\\WebApiConfigurationTask\\WebApiConfigurations\\WebApiConfigurations\\obj\\",
       "projectStyle": "PackageReference",

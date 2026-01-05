@@ -7,5 +7,6 @@
         public string Description { get; set; }
         public int Count { get; set; }
         public string Currency { get; set; }
+        public string CategoryName { get; set; }
     }
 }

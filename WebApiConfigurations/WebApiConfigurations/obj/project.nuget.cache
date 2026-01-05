@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "c7/y6OwbebY=",
+  "dgSpecHash": "nu6HgOhCCuo=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Asus\\Desktop\\VisionTasks\\WebApiConfigurationTask\\WebApiConfigurations\\WebApiConfigurations\\WebApiConfigurations.csproj",
+  "projectFilePath": "C:\\Users\\Asus\\Desktop\\VisionTasks\\WebApiConfigurationTask\\WebApiConfigurations\\WebApiConfigurations\\WebApiAdvance.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Asus\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
