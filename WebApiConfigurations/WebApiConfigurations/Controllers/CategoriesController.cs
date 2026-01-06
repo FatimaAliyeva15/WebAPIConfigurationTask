@@ -32,7 +32,7 @@ namespace WebApiConfigurations.Controllers
         [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetAllCategories()
         {
-            var list = await _categoryRepository.GetAllCategoryAsync();
+            var list = await _categoryRepository.GetAllAsync();
             //var result = _mapper.Map<List<GetCategoryDTO>>(list);
             return StatusCode((int)HttpStatusCode.OK, list);
         }
@@ -41,7 +41,7 @@ namespace WebApiConfigurations.Controllers
         [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetByIdCategory(Guid id)
         {
-            var existsCategory = await _categoryRepository.GetCategory(x  => x.Id == id);
+            var existsCategory = await _categoryRepository.Get(x  => x.Id == id);
             if (existsCategory == null) 
                 return NotFound();
 
@@ -62,7 +62,7 @@ namespace WebApiConfigurations.Controllers
 
             var category = _mapper.Map<Category>(createCategoryDTO);
 
-            await _categoryRepository.AddCategoryAsync(category);
+            await _categoryRepository.AddAsync(category);
             await _categoryRepository.SaveAsync();
             return NoContent();
         }
@@ -71,11 +71,11 @@ namespace WebApiConfigurations.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCategory(Guid id)
         {
-            var existsCategory = await _categoryRepository.GetCategory(x =>x.Id == id);
+            var existsCategory = await _categoryRepository.Get(x =>x.Id == id);
             if (existsCategory == null) 
                 return NotFound();
 
-            _categoryRepository.DeleteCategory(existsCategory.Id);
+            _categoryRepository.Delete(existsCategory.Id);
             await _categoryRepository.SaveAsync();  
             return NoContent();
         }
@@ -84,7 +84,7 @@ namespace WebApiConfigurations.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateCategory(Guid id, UpdateCategoryDTO updateCategoryDTO)
         {
-            var existsCategory = await _categoryRepository.GetCategory(x =>x.Id == id);
+            var existsCategory = await _categoryRepository.Get(x =>x.Id == id);
             if (existsCategory == null)
                 return NotFound();
 

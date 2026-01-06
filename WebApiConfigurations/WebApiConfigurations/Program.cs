@@ -9,6 +9,9 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Reflection;
 using System.Text;
+using WebApiAdvance.DAL.Repositories.AbstractRepositories;
+using WebApiAdvance.DAL.Repositories.ConcreteRepositories;
+using WebApiAdvance.DAL.Repositories.ConcretesRepositories;
 using WebApiConfigurations.DAL.EFCore;
 using WebApiConfigurations.DTOs.CategoryDTOs;
 using WebApiConfigurations.Entities.UserModel;
@@ -57,6 +60,10 @@ builder.Services.AddAuthentication(opt =>
         ClockSkew = TimeSpan.Zero
     };
 });
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
