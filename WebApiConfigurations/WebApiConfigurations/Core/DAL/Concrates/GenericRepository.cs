@@ -56,10 +56,7 @@ namespace WebApiAdvance.Core.DAL.Concrates
                 : query.Where(func).Skip((page - 1) * size).Take(size).ToListAsync();
         }
 
-        public async Task SaveAsync()
-        {
-            await _appDbContext.SaveChangesAsync();
-        }
+        
 
         public void Update(TEntity entity)
         {

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Net;
 using WebApiAdvance.DAL.Repositories.AbstractRepositories;
+using WebApiAdvance.DAL.UnitOfWork.Abstract;
 using WebApiConfigurations.DAL.EFCore;
 using WebApiConfigurations.DTOs.CategoryDTOs;
 using WebApiConfigurations.DTOs.ProductDTOs;
@@ -18,21 +19,20 @@ namespace WebApiConfigurations.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly IUnitOfWork _unitOfWork;
         IMapper _mapper;
 
-        public CategoriesController(IMapper mapper, ICategoryRepository categoryRepository)
+        public CategoriesController(IMapper mapper, IUnitOfWork unitOfWork)
         {
-
             _mapper = mapper;
-            _categoryRepository = categoryRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetAllCategories()
         {
-            var list = await _categoryRepository.GetAllAsync();
+            var list = await _unitOfWork.CategoryRepository.GetAllAsync();
             //var result = _mapper.Map<List<GetCategoryDTO>>(list);
             return StatusCode((int)HttpStatusCode.OK, list);
         }
@@ -41,7 +41,7 @@ namespace WebApiConfigurations.Controllers
         [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetByIdCategory(Guid id)
         {
-            var existsCategory = await _categoryRepository.Get(x  => x.Id == id);
+            var existsCategory = await _unitOfWork.CategoryRepository.Get(x  => x.Id == id);
             if (existsCategory == null) 
                 return NotFound();
 
@@ -62,8 +62,8 @@ namespace WebApiConfigurations.Controllers
 
             var category = _mapper.Map<Category>(createCategoryDTO);
 
-            await _categoryRepository.AddAsync(category);
-            await _categoryRepository.SaveAsync();
+            await _unitOfWork.CategoryRepository.AddAsync(category);
+            await _unitOfWork.SaveAsync();
             return NoContent();
         }
 
@@ -71,12 +71,12 @@ namespace WebApiConfigurations.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCategory(Guid id)
         {
-            var existsCategory = await _categoryRepository.Get(x =>x.Id == id);
+            var existsCategory = await _unitOfWork.CategoryRepository.Get(x =>x.Id == id);
             if (existsCategory == null) 
                 return NotFound();
 
-            _categoryRepository.Delete(existsCategory.Id);
-            await _categoryRepository.SaveAsync();  
+            _unitOfWork.CategoryRepository.Delete(existsCategory.Id);
+            await _unitOfWork.SaveAsync();  
             return NoContent();
         }
 
@@ -84,7 +84,7 @@ namespace WebApiConfigurations.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateCategory(Guid id, UpdateCategoryDTO updateCategoryDTO)
         {
-            var existsCategory = await _categoryRepository.Get(x =>x.Id == id);
+            var existsCategory = await _unitOfWork.CategoryRepository.Get(x =>x.Id == id);
             if (existsCategory == null)
                 return NotFound();
 
@@ -94,7 +94,7 @@ namespace WebApiConfigurations.Controllers
             //_context.Update(existsCategory);
 
             //_mapper.Map(updateCategoryDTO, existsCategory);
-            await _categoryRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
             return NoContent();
         }
     }

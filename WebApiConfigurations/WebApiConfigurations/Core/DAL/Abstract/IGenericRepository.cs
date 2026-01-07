@@ -11,6 +11,5 @@ namespace WebApiAdvance.Core.DAL.Abstract
         Task AddAsync(TEntity entity);
         void Update(TEntity entity);
         void Delete(Guid id);
-        Task SaveAsync();
     }
 }

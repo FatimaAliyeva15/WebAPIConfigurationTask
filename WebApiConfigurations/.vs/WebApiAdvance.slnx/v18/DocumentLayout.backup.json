@@ -7,16 +7,8 @@
       "RelativeMoniker": "D:0:0:{E043928C-0B31-2A66-6AD3-51E3533ED7BB}|WebApiConfigurations\\WebApiAdvance.csproj|solutionrelative:webapiconfigurations\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E043928C-0B31-2A66-6AD3-51E3533ED7BB}|WebApiConfigurations\\WebApiAdvance.csproj|c:\\users\\asus\\desktop\\visiontasks\\webapiconfigurationtask\\webapiconfigurations\\webapiconfigurations\\dal\\repositories\\concreterepositories\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E043928C-0B31-2A66-6AD3-51E3533ED7BB}|WebApiConfigurations\\WebApiAdvance.csproj|solutionrelative:webapiconfigurations\\dal\\repositories\\concreterepositories\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E043928C-0B31-2A66-6AD3-51E3533ED7BB}|WebApiConfigurations\\WebApiAdvance.csproj|c:\\users\\asus\\desktop\\visiontasks\\webapiconfigurationtask\\webapiconfigurations\\webapiconfigurations\\dal\\repositories\\abstractrepositories\\iproductrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E043928C-0B31-2A66-6AD3-51E3533ED7BB}|WebApiConfigurations\\WebApiAdvance.csproj|solutionrelative:webapiconfigurations\\dal\\repositories\\abstractrepositories\\iproductrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E043928C-0B31-2A66-6AD3-51E3533ED7BB}|WebApiConfigurations\\WebApiAdvance.csproj|c:\\users\\asus\\desktop\\visiontasks\\webapiconfigurationtask\\webapiconfigurations\\webapiconfigurations\\dal\\repositories\\concreterepositories\\categoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E043928C-0B31-2A66-6AD3-51E3533ED7BB}|WebApiConfigurations\\WebApiAdvance.csproj|solutionrelative:webapiconfigurations\\dal\\repositories\\concreterepositories\\categoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E043928C-0B31-2A66-6AD3-51E3533ED7BB}|WebApiConfigurations\\WebApiAdvance.csproj|c:\\users\\asus\\desktop\\visiontasks\\webapiconfigurationtask\\webapiconfigurations\\webapiconfigurations\\configurationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E043928C-0B31-2A66-6AD3-51E3533ED7BB}|WebApiConfigurations\\WebApiAdvance.csproj|solutionrelative:webapiconfigurations\\configurationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,45 +18,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ProductRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\VisionTasks\\WebApiConfigurationTask\\WebApiConfigurations\\WebApiConfigurations\\DAL\\Repositories\\ConcreteRepositories\\ProductRepository.cs",
-              "RelativeDocumentMoniker": "WebApiConfigurations\\DAL\\Repositories\\ConcreteRepositories\\ProductRepository.cs",
-              "ToolTip": "C:\\Users\\Asus\\Desktop\\VisionTasks\\WebApiConfigurationTask\\WebApiConfigurations\\WebApiConfigurations\\DAL\\Repositories\\ConcreteRepositories\\ProductRepository.cs",
-              "RelativeToolTip": "WebApiConfigurations\\DAL\\Repositories\\ConcreteRepositories\\ProductRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAdAAAAAAAAAA==",
+              "Title": "ConfigurationService.cs",
+              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\VisionTasks\\WebApiConfigurationTask\\WebApiConfigurations\\WebApiConfigurations\\ConfigurationService.cs",
+              "RelativeDocumentMoniker": "WebApiConfigurations\\ConfigurationService.cs",
+              "ToolTip": "C:\\Users\\Asus\\Desktop\\VisionTasks\\WebApiConfigurationTask\\WebApiConfigurations\\WebApiConfigurations\\ConfigurationService.cs",
+              "RelativeToolTip": "WebApiConfigurations\\ConfigurationService.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-06T12:22:47.347Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "IProductRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\VisionTasks\\WebApiConfigurationTask\\WebApiConfigurations\\WebApiConfigurations\\DAL\\Repositories\\AbstractRepositories\\IProductRepository.cs",
-              "RelativeDocumentMoniker": "WebApiConfigurations\\DAL\\Repositories\\AbstractRepositories\\IProductRepository.cs",
-              "ToolTip": "C:\\Users\\Asus\\Desktop\\VisionTasks\\WebApiConfigurationTask\\WebApiConfigurations\\WebApiConfigurations\\DAL\\Repositories\\AbstractRepositories\\IProductRepository.cs",
-              "RelativeToolTip": "WebApiConfigurations\\DAL\\Repositories\\AbstractRepositories\\IProductRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAABDAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-06T12:22:10.401Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CategoryRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\VisionTasks\\WebApiConfigurationTask\\WebApiConfigurations\\WebApiConfigurations\\DAL\\Repositories\\ConcreteRepositories\\CategoryRepository.cs",
-              "RelativeDocumentMoniker": "WebApiConfigurations\\DAL\\Repositories\\ConcreteRepositories\\CategoryRepository.cs",
-              "ToolTip": "C:\\Users\\Asus\\Desktop\\VisionTasks\\WebApiConfigurationTask\\WebApiConfigurations\\WebApiConfigurations\\DAL\\Repositories\\ConcreteRepositories\\CategoryRepository.cs",
-              "RelativeToolTip": "WebApiConfigurations\\DAL\\Repositories\\ConcreteRepositories\\CategoryRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-06T12:09:20.681Z",
+              "WhenOpened": "2026-01-07T12:39:35.884Z",
               "EditorCaption": ""
             },
             {
@@ -75,7 +41,7 @@
               "RelativeDocumentMoniker": "WebApiConfigurations\\Program.cs",
               "ToolTip": "C:\\Users\\Asus\\Desktop\\VisionTasks\\WebApiConfigurationTask\\WebApiConfigurations\\WebApiConfigurations\\Program.cs",
               "RelativeToolTip": "WebApiConfigurations\\Program.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAAAD4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-28T17:31:03.434Z",
               "EditorCaption": ""
