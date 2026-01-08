@@ -12,7 +12,7 @@ using WebApiConfigurations.DAL.EFCore;
 using WebApiConfigurations.Entities.UserModel;
 
 namespace WebApiAdvance
-{
+{   
     public static class ConfigurationService
     {
         public static IServiceCollection AddConfigurationService(this IServiceCollection services, IConfiguration configuration)
@@ -22,7 +22,6 @@ namespace WebApiAdvance
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
-            services.AddOpenApi();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
